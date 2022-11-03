@@ -5,3 +5,4 @@
 <p>The program is intended to be expanded upon to give an otiopn to download any of wildbow's works</p>
 <p>Code needs to be added after line 18 to remove the "next chapter" or "previous chapter" links. </p>
 <p>Chapters are also not named, and just numbered after the Hundredth chapter</p>
+<p>A Cover needs to be added</p>
