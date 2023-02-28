@@ -12,7 +12,7 @@ def file_path(title,arc):
 
 def add_chapter(link,arc):
     chapter_webpage=requests.get(link)
-    soup=BS(chapter_webpage.content) 
+    soup=BS(chapter_webpage.content,"lxml") 
     title=soup.find('h1', attrs = {'class':"entry-title"}).get_text() #title
     content=soup.find('div', attrs = {'class':"entry-content"}) #needs filtering
     #iterate through links and remove them 
@@ -26,7 +26,7 @@ def add_chapter(link,arc):
 
 contents_webpage=requests.get("https://parahumans.wordpress.com/table-of-contents/")
 #creates a response object which you can later use with class methods
-soup=BS(contents_webpage.content) #soup object
+soup=BS(contents_webpage.content,"lxml") #soup object
 content=soup.find('div', attrs = {'class':"entry-content"}) #main content
 for link in content('a'): #iterate links
     if not os.path.exists('./Worm_Chapters'):
