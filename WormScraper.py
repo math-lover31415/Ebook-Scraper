@@ -11,7 +11,7 @@ def remove_special_characters(text):
 
 def write(content,title):
     text=content.prettify()
-    path="OEBPS/TEXT/"+title+'.html'
+    path=title+'.html'
     epub.writestr(path,text)
 
 title_list=list()
@@ -39,13 +39,13 @@ epub.writestr("mimetype","application/epub+zip")
 epub.writestr("META-INF/container.xml",'''<?xml version="1.0"?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
     <rootfiles>
-        <rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>
+        <rootfile full-path="content.opf" media-type="application/oebps-package+xml"/>
     </rootfiles>
 </container>
 ''')
 
 image_url=requests.get('https://static.wikia.nocookie.net/parahumans/images/d/d3/Skitter_by_ariirf.jpg/')
-epub.writestr('OEBPS/Images/cover.jpg',image_url.content)
+epub.writestr('cover.jpg',image_url.content)
 print('Cover added')
 
 contents_webpage=requests.get("https://parahumans.wordpress.com/table-of-contents/")
@@ -71,7 +71,7 @@ manifest=''
 spine=''
 toc=''
 
-epub.writestr('OEBPS/start.xhtml','''
+epub.writestr('start.xhtml','''
 <?xml version='1.0' encoding='utf-8'?>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
@@ -88,7 +88,6 @@ epub.writestr('OEBPS/start.xhtml','''
 
 for num,title in enumerate(title_list):
     item=title+'.html'
-    href='Text/'+item
     toc+='''
     <navPoint id="%s" playorder="%s">
         <navLabel>
@@ -96,11 +95,11 @@ for num,title in enumerate(title_list):
         </navLabel>
         <content src="%s"/>
     </navPoint>
-    ''' % (item,num+1,title,href)
-    manifest+='<item id="%s" href="%s" media-type="application/xhtml+xml"/>\n        ' % (item,href)
+    ''' % (item,num+1,title,item)
+    manifest+='<item id="%s" href="%s" media-type="application/xhtml+xml"/>\n        ' % (item,item)
     spine+='<itemref idref="%s" />\n        ' % (item)
 
-epub.writestr('OEBPS/toc.ncx','''<?xml version="1.0" encoding="UTF-8"?>
+epub.writestr('toc.ncx','''<?xml version="1.0" encoding="UTF-8"?>
 <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
 <head>
     <meta name="dtb:uid" content="cd751626-b72f-11ed-afa1-0242ac120002"/>
@@ -129,7 +128,7 @@ content='''<?xml version="1.0" encoding="UTF-8"?>
     </metadata>
     <manifest>
         <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
-        <item id="cover.jpg" href="Images/cover.jpg" media-type="image/jpg"/>
+        <item id="cover.jpg" href="cover.jpg" media-type="image/jpg"/>
         <item href="start.xhtml" id="start" media-type="application/xhtml+xml"/>
         %s
     </manifest>
@@ -140,5 +139,5 @@ content='''<?xml version="1.0" encoding="UTF-8"?>
 </package>
 '''
 
-epub.writestr('OEBPS/content.opf', content % (manifest,spine))
+epub.writestr('content.opf', content % (manifest,spine))
 print("Spine and Manifest added")
