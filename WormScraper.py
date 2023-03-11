@@ -11,6 +11,7 @@ def remove_special_characters(text):
 
 def write(content,title):
     text=content.prettify()
+    text='<center><h1>%s</h1></center>' % (title) +text
     path=title+'.html'
     epub.writestr(path,text)
 
