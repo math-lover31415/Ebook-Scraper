@@ -62,13 +62,20 @@ for link in content('a'): #iterate links
         link=link['href']
         if "share" in link:
             continue #skips social media links
+        
         #conditional statement to handle error if http not in link. Could be handled better
         if 'https://' not in link or link.index("https://")!=0:
             link="https://"+link
+        
         title=add_chapter(link)
-        if title in title_list:
+        if title in title_list: #some links are accidentally repeated
             continue
         title_list.append(title)
+        
+        # The author left out the link for the second chapter of the epilogue from the table of contants as a joke. That has to be added separately
+        if title=="Teneral e.1":
+            title=add_chapter('https://parahumans.wordpress.com/2013/11/05/teneral-e-2/')
+            title_list.append(title)
     except (KeyError,AssertionError):
         pass
 
