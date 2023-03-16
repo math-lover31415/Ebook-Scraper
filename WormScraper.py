@@ -25,9 +25,14 @@ def add_chapter(link):
     if title in title_list:
         return title
     content=soup.find('div', attrs = {'class':"entry-content"}) #needs filtering
+    
     #iterate through links and remove them 
     for a in content.findAll('a',href=True):
         a.extract()
+    #remove the Social media flairs
+    for a in content.findAll('div', attrs ={"id":'jp-post-flair'}):
+        a.extract()
+    
     write(content,title)
     print("Added chapter:", title)
     return title
@@ -50,7 +55,6 @@ epub.writestr('OEBPS/Images/cover.jpg',image_url.content)
 print('Cover added')
 
 contents_webpage=requests.get("https://parahumans.wordpress.com/table-of-contents/")
-#creates a response object which you can later use with class methods
 soup=BS(contents_webpage.content,'lxml') #soup object
 content=soup.find('div', attrs = {'class':"entry-content"}) #main content
 for link in content('a'): #iterate links
@@ -58,7 +62,7 @@ for link in content('a'): #iterate links
         link=link['href']
         if "share" in link:
             continue #skips social media links
-        #conditional statement to handle error if http not in link
+        #conditional statement to handle error if http not in link. Could be handled better
         if 'https://' not in link or link.index("https://")!=0:
             link="https://"+link
         title=add_chapter(link)
