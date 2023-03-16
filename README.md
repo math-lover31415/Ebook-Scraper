@@ -4,7 +4,6 @@ This program iterates through the links in the [Table of Contents](https://parah
 **The following has to be kept in mind:**
 * The program uses the modules `beautifulsoup4`, `requests` and `lxml` to parse through the contents of the webpage. The modules can be installed with pip before running the program. The program also uses the`zipfile` module to create the .epub file.
 * The program does not use style sheets and page templates for the epub
-* The program is based on the Table of contents page, and therefore the second chapter of the epilogue is missing. The chapter was intentionally left out by the Author as a joke.
 
 The structure of the epub file is as follows
 - OEBPS
