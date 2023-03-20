@@ -1,4 +1,4 @@
-# Ebook-Scrapper
+# Ebook-Scraper
 This program iterates through the links in the [Table of Contents](https://parahumans.wordpress.com/table-of-contents/) to make an ebook for Worm
 
 **The following has to be kept in mind:**
