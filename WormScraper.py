@@ -140,7 +140,7 @@ content='''<?xml version="1.0" encoding="UTF-8"?>
     </metadata>
     <manifest>
         <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
-        <item id="cover.jpg" href="Images/cover.jpg" media-type="image/jpg"/>
+        <item id="cover.jpg" properties="cover-image" href="Images/cover.jpg" media-type="image/jpg"/>
         <item href="start.xhtml" id="start" media-type="application/xhtml+xml"/>
         %s
     </manifest>
